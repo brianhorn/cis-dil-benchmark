@@ -108,6 +108,12 @@ control 'cis-dil-benchmark-4.1.3' do
 
   only_if { cis_level == 2 }
 
+  describe command('systemctl is-enabled auditd.service') do
+    it { should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active auditd.service') do
+    it { should_not eq "active\n"}
+  end
   describe service('auditd') do
     it { should be_enabled }
     it { should be_running }
