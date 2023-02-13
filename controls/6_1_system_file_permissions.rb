@@ -79,7 +79,7 @@ control 'cis-dil-benchmark-6.1.1' do
   only_if {  cis_level == 2 }
 
   describe 'cis-dil-benchmark-6.1.1' do
-    skip 'Not implemented'
+    skip 'No package manager available'
   end
 end
 
@@ -378,7 +378,7 @@ control 'cis-dil-benchmark-6.1.13' do
   tag level: 1
 
   describe 'cis-dil-benchmark-6.1.13' do
-    skip 'Not implemented'
+    skip 'Manually check if SUID programs are needed'
   end
 end
 
@@ -402,6 +402,6 @@ control 'cis-dil-benchmark-6.1.14' do
   tag level: 1
 
   describe 'cis-dil-benchmark-6.1.14' do
-    skip 'Not implemented'
+    skip 'Manually check if SGID programs are needed'
   end
 end

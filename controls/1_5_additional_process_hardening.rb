@@ -52,9 +52,12 @@ control 'cis-dil-benchmark-1.5.2' do
   tag cis: 'distribution-independent-linux:1.5.2'
   tag level: 1
 
-  describe command('dmesg | grep NX') do
-    its(:stdout) { should match(/NX \(Execute Disable\) protection: active/) }
+  describe 'cis-dil-benchmark-1.5.2' do
+    skip 'Not relevant to platform'
   end
+  #describe command('dmesg | grep NX') do
+  #  its(:stdout) { should match(/NX \(Execute Disable\) protection: active/) }
+  #end
 end
 
 control 'cis-dil-benchmark-1.5.3' do

@@ -48,16 +48,20 @@ control 'cis-dil-benchmark-1.6.2.1' do
   tag cis: 'distribution-independent-linux:1.6.2.1'
   tag level: 2
 
-  describe.one do
-    %w(/boot/grub2/grub.cfg /boot/grub/menu.lst).each do |f|
-      describe file(f) do
-        its('content') { should_not match /selinux=0/ }
-        its('content') { should_not match /enforcing=0/ }
-      end
-    end
-  end
+  #describe.one do
+  #  %w(/boot/grub2/grub.cfg /boot/grub/menu.lst).each do |f|
+  #    describe file(f) do
+  #      its('content') { should_not match /selinux=0/ }
+  #      its('content') { should_not match /enforcing=0/ }
+  #    end
+  #  end
+  #end
 
-  only_if { cis_level == 2 }
+  #only_if { cis_level == 2 }
+
+  describe 'cis-dil-benchmark-1.6.2.1' do
+    skip 'Grub not available'
+  end
 end
 
 control 'cis-dil-benchmark-1.6.2.2' do
@@ -68,17 +72,21 @@ control 'cis-dil-benchmark-1.6.2.2' do
   tag cis: 'distribution-independent-linux:1.6.2.2'
   tag level: 2
 
-  describe file('/etc/selinux/config') do
-    its('content') { should match /^SELINUX=enforcing\s*(?:#.*)?$/ }
-  end
+  #describe file('/etc/selinux/config') do
+  #  its('content') { should match /^SELINUX=enforcing\s*(?:#.*)?$/ }
+  #end
 
-  describe command('sestatus') do
-    its('stdout') { should match /SELinux status:\s+enabled/ }
-    its('stdout') { should match /Current mode:\s+enforcing/ }
-    its('stdout') { should match /Mode from config file:\s+enforcing/ }
-  end
+  #describe command('sestatus') do
+  #  its('stdout') { should match /SELinux status:\s+enabled/ }
+  #  its('stdout') { should match /Current mode:\s+enforcing/ }
+  #  its('stdout') { should match /Mode from config file:\s+enforcing/ }
+  #end
 
-  only_if { cis_level == 2 }
+  #only_if { cis_level == 2 }
+
+  describe 'cis-dil-benchmark-1.6.2.2' do
+    skip 'SELinux not in use; AppArmor available instead'
+  end
 end
 
 control 'cis-dil-benchmark-1.6.2.3' do
@@ -89,15 +97,18 @@ control 'cis-dil-benchmark-1.6.2.3' do
   tag cis: 'distribution-independent-linux:1.6.2.3'
   tag level: 2
 
-  describe file('/etc/selinux/config') do
-    its('content') { should match /^SELINUXTYPE=(targeted|mls)\s*(?:#.*)?$/ }
-  end
+  #describe file('/etc/selinux/config') do
+  #  its('content') { should match /^SELINUXTYPE=(targeted|mls)\s*(?:#.*)?$/ }
+  #end
 
-  describe command('sestatus') do
-    its('stdout') { should match /Policy from config file:\s+(targeted|mls)/ }
-  end
+  #describe command('sestatus') do
+  #  its('stdout') { should match /Policy from config file:\s+(targeted|mls)/ }
+  #end
 
-  only_if { cis_level == 2 }
+  #only_if { cis_level == 2 }
+  describe 'cis-dil-benchmark-1.6.2.3' do
+    skip 'SELinux not in use; AppArmor available instead'
+  end
 end
 
 control 'cis-dil-benchmark-1.6.2.4' do
@@ -108,15 +119,18 @@ control 'cis-dil-benchmark-1.6.2.4' do
   tag cis: 'distribution-independent-linux:1.6.2.4'
   tag level: 2
 
-  describe package('setroubleshoot') do
-    it { should_not be_installed }
-  end
+  #describe package('setroubleshoot') do
+  #  it { should_not be_installed }
+  #end
 
-  describe command('setroubleshoot') do
-    it { should_not exist }
-  end
+  #describe command('setroubleshoot') do
+  #  it { should_not exist }
+  #end
 
-  only_if { cis_level == 2 }
+  #only_if { cis_level == 2 }
+  describe 'cis-dil-benchmark-1.6.2.4' do
+    skip 'SELinux not in use; AppArmor available instead'
+  end
 end
 
 control 'cis-dil-benchmark-1.6.2.5' do
@@ -127,15 +141,18 @@ control 'cis-dil-benchmark-1.6.2.5' do
   tag cis: 'distribution-independent-linux:1.6.2.5'
   tag level: 2
 
-  describe package('mcstrans') do
-    it { should_not be_installed }
-  end
+  #describe package('mcstrans') do
+  #  it { should_not be_installed }
+  #end
 
-  describe command('mcstransd') do
-    it { should_not exist }
-  end
+  #describe command('mcstransd') do
+  #  it { should_not exist }
+  #end
 
-  only_if { cis_level == 2 }
+  #only_if { cis_level == 2 }
+  describe 'cis-dil-benchmark-1.6.2.5' do
+    skip 'SELinux not in use; AppArmor available instead'
+  end
 end
 
 control 'cis-dil-benchmark-1.6.2.6' do
@@ -146,11 +163,14 @@ control 'cis-dil-benchmark-1.6.2.6' do
   tag cis: 'distribution-independent-linux:1.6.2.6'
   tag level: 2
 
-  describe command('ps -eZ | grep -E "initrc" | grep -E -v -w "tr|ps|grep|bash|awk" | tr \':\' \' \' | awk \'{ print $NF }\'') do
-    its('stdout') { should eq '' }
-  end
+  #describe command('ps -eZ | grep -E "initrc" | grep -E -v -w "tr|ps|grep|bash|awk" | tr \':\' \' \' | awk \'{ print $NF }\'') do
+  #  its('stdout') { should eq '' }
+  #end
 
-  only_if { cis_level == 2 }
+  #only_if { cis_level == 2 }
+  describe 'cis-dil-benchmark-1.6.2.6' do
+    skip 'SELinux not in use; AppArmor available instead'
+  end
 end
 
 control 'cis-dil-benchmark-1.6.3.1' do

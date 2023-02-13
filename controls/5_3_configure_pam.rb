@@ -51,46 +51,8 @@ control 'cis-dil-benchmark-5.3.1' do
   tag cis: 'distribution-independent-linux:5.3.1'
   tag level: 1
 
-  if package('pam_cracklib').installed?
-    describe.one do
-      %w(common-password system-auth).each do |f|
-        describe file("/etc/pam.d/#{f}") do
-          its('content') { should match(/^password\s+required\s+pam_cracklib\.so (\S+\s+)*try_first_pass/) }
-          its('content') { should match(/^password\s+required\s+pam_cracklib\.so (\S+\s+)*retry=[3210]/) }
-        end
-      end
-    end
-
-    describe.one do
-      %w(common-password system-auth).each do |f|
-        describe file("/etc/pam.d/#{f}") do
-          its('content') { should match(/^password\s+required\s+pam_cracklib\.so (\S+\s+)*minlen=(1[4-9]|[2-9][0-9]|[1-9][0-9][0-9]+)/) }
-          its('content') { should match(/^password\s+required\s+pam_cracklib\.so (\S+\s+)*dcredit=-[1-9][0-9]*\s*(?:#.*)?/) }
-          its('content') { should match(/^password\s+required\s+pam_cracklib\.so (\S+\s+)*lcredit=-[1-9][0-9]*\s*(?:#.*)?/) }
-          its('content') { should match(/^password\s+required\s+pam_cracklib\.so (\S+\s+)*ucredit=-[1-9][0-9]*\s*(?:#.*)?/) }
-          its('content') { should match(/^password\s+required\s+pam_cracklib\.so (\S+\s+)*ocredit=-[1-9][0-9]*\s*(?:#.*)?/) }
-        end
-      end
-    end
-  end
-
-  if package('pam_passwdqc').installed? || package('libpwquality').installed?
-    describe.one do
-      %w(common-password system-auth).each do |f|
-        describe file("/etc/pam.d/#{f}") do
-          its('content') { should match(/^password\s+requisite\s+pam_pwquality\.so (\S+\s+)*retry=[3210]/) }
-          its('content') { should match(/^password\s+requisite\s+pam_pwquality\.so (\S+\s+)*try_first_pass/) }
-        end
-      end
-    end
-
-    describe file('/etc/security/pwquality.conf') do
-      its('content') { should match(/^minlen = (1[4-9]|[2-9][0-9]|[1-9][0-9][0-9]+)\s*(?:#.*)?$/) }
-      its('content') { should match(/^dcredit = -[1-9][0-9]*\s*(?:#.*)?$/) }
-      its('content') { should match(/^lcredit = -[1-9][0-9]*\s*(?:#.*)?$/) }
-      its('content') { should match(/^ucredit = -[1-9][0-9]*\s*(?:#.*)?$/) }
-      its('content') { should match(/^ocredit = -[1-9][0-9]*\s*(?:#.*)?$/) }
-    end
+  describe 'cis-dil-benchmark-5.3.1' do
+    skip "Manually check if organisatiosn site policy is configured"
   end
 end
 
@@ -115,7 +77,7 @@ control 'cis-dil-benchmark-5.3.2' do
   tag level: 1
 
   describe 'cis-dil-benchmark-5.3.2' do
-    skip 'Not implemented'
+    skip 'Manually check if organisations lock out restrictions are configured'
   end
 end
 

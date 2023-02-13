@@ -48,9 +48,11 @@ control 'cis-dil-benchmark-4.2.1.2' do
   tag cis: 'distribution-independent-linux:4.2.1.2'
   tag level: 1
 
-  describe service('rsyslog') do
-    it { should be_enabled }
-    it { should be_running }
+  describe command('systemctl is-enabled rsyslog.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active rsyslog.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 

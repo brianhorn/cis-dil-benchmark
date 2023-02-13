@@ -28,7 +28,7 @@ control 'cis-dil-benchmark-1.2.1' do
   tag level: 1
 
   describe 'cis-dil-benchmark-1.2.1' do
-    skip 'Not implemented'
+    skip 'No package manager available'
   end
 end
 
@@ -41,6 +41,6 @@ control 'cis-dil-benchmark-1.2.2' do
   tag level: 1
 
   describe 'cis-dil-benchmark-1.2.2' do
-    skip 'Not implemented'
+    skip 'No package manager available'
   end
 end

@@ -222,7 +222,7 @@ control 'cis-dil-benchmark-5.5' do
   tag level: 1
 
   describe 'cis-dil-benchmark-5.5' do
-    skip 'Not implemented'
+    skip 'Physically check'
   end
 end
 

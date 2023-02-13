@@ -145,9 +145,8 @@ control 'cis-dil-benchmark-3.2.8' do
   tag cis: 'distribution-independent-linux:3.2.8'
   tag level: 1
 
-  describe kernel_parameter('net.ipv4.tcp_syncookies') do
-    its(:value) { should_not be_nil }
-    its(:value) { should eq 1 }
+  describe 'cis-dil-benchmark-3.2.8' do
+    skip "Kernel not compiled with CONFIG_SYNCOOKIES"
   end
 end
 

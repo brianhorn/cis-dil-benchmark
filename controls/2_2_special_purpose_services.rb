@@ -164,10 +164,14 @@ control 'cis-dil-benchmark-2.2.3' do
   tag cis: 'distribution-independent-linux:2.2.3'
   tag level: 1
 
-  describe service('avahi-daemon') do
-    it { should_not be_enabled }
-    it { should_not be_running }
+  describe command('systemctl is-enabled avahi-daemon.service') do
+    its('stdout') {should_not eq "enabled\n"}
   end
+
+  describe command('systemctl is-active avahi-daemon.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+
 end
 
 control 'cis-dil-benchmark-2.2.4' do
@@ -178,10 +182,14 @@ control 'cis-dil-benchmark-2.2.4' do
   tag cis: 'distribution-independent-linux:2.2.4'
   tag level: 1
 
-  describe service('cups') do
-    it { should_not be_enabled }
-    it { should_not be_running }
+  describe command('systemctl is-enabled cups.service') do
+    its('stdout') {should_not eq "enabled\n"}
   end
+
+  describe command('systemctl is-active cups.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+
 end
 
 control 'cis-dil-benchmark-2.2.5' do
@@ -192,11 +200,25 @@ control 'cis-dil-benchmark-2.2.5' do
   tag cis: 'distribution-independent-linux:2.2.5'
   tag level: 1
 
-  %w(isc-dhcp-server isc-dhcp-server6 dhcpd).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled isc-dhcp-server.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active isc-dhcp-server.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+
+  describe command('systemctl is-enabled isc-dhcp-server6.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active isc-dhcp-server6.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+
+  describe command('systemctl is-enabled dhcpd.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active dhcpd.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -208,10 +230,13 @@ control 'cis-dil-benchmark-2.2.6' do
   tag cis: 'distribution-independent-linux:2.2.6'
   tag level: 1
 
-  describe service('slapd') do
-    it { should_not be_enabled }
-    it { should_not be_running }
+  describe command('systemctl is-enabled slapd.service') do
+    its('stdout') {should_not eq "enabled\n"}
   end
+  describe command('systemctl is-active slapd.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+
 end
 
 control 'cis-dil-benchmark-2.2.7' do
@@ -222,11 +247,23 @@ control 'cis-dil-benchmark-2.2.7' do
   tag cis: 'distribution-independent-linux:2.2.7'
   tag level: 1
 
-  %w(nfs-kernel-server nfs rpcbind).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled nfs-kernel-server.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active nfs-kernel-server.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled nfs.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active nfs.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled rpcbind.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active rpcbind.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -238,11 +275,23 @@ control 'cis-dil-benchmark-2.2.8' do
   tag cis: 'distribution-independent-linux:2.2.8'
   tag level: 1
 
-  %w(named bind bind9).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled named.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active named.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled bind.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active bind.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled bind9.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active bind9.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -254,11 +303,14 @@ control 'cis-dil-benchmark-2.2.9' do
   tag cis: 'distribution-independent-linux:2.2.9'
   tag level: 1
 
-  describe service('vsftpd') do
-    it { should_not be_enabled }
-    it { should_not be_running }
+  describe command('systemctl is-enabled vsftpd.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active vsftpd.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
+
 
 control 'cis-dil-benchmark-2.2.10' do
   title 'Ensure HTTP server is not enabled'
@@ -268,11 +320,35 @@ control 'cis-dil-benchmark-2.2.10' do
   tag cis: 'distribution-independent-linux:2.2.10'
   tag level: 1
 
-  %w(apache apache2 httpd lighttpd nginx).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled apache.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active apache.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled apache2.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active apache2.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled httpd.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active httpd.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled lighttpd.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active lighttpd.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled nginx.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active nginx.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -284,11 +360,23 @@ control 'cis-dil-benchmark-2.2.11' do
   tag cis: 'distribution-independent-linux:2.2.11'
   tag level: 1
 
-  %w(dovecot courier-imap cyrus-imap).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled dovecot.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active dovecot.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled courier-imap.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active courier-imap.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled cyrus-imap.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active cyrus-imap.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -300,11 +388,23 @@ control 'cis-dil-benchmark-2.2.12' do
   tag cis: 'distribution-independent-linux:2.2.12'
   tag level: 1
 
-  %w(samba smb smbd).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled samba.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active samba.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled smb.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active smb.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled smbd.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active smbd.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -316,11 +416,17 @@ control 'cis-dil-benchmark-2.2.13' do
   tag cis: 'distribution-independent-linux:2.2.13'
   tag level: 1
 
-  %w(squid squid3).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled squid.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active squid.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled squid3.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active squid3.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -332,9 +438,11 @@ control 'cis-dil-benchmark-2.2.14' do
   tag cis: 'distribution-independent-linux:2.2.14'
   tag level: 1
 
-  describe service('snmpd') do
-    it { should_not be_enabled }
-    it { should_not be_running }
+  describe command('systemctl is-enabled snmpd.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active snmpd.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -359,11 +467,17 @@ control 'cis-dil-benchmark-2.2.16' do
   tag cis: 'distribution-independent-linux:2.2.16'
   tag level: 1
 
-  %w(rsync rsyncd).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled rsync.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active rsync.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled rsyncd.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active rsyncd.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
 
@@ -375,10 +489,16 @@ control 'cis-dil-benchmark-2.2.17' do
   tag cis: 'distribution-independent-linux:2.2.17'
   tag level: 1
 
-  %w(nis ypserv).each do |s|
-    describe service(s) do
-      it { should_not be_enabled }
-      it { should_not be_running }
-    end
+  describe command('systemctl is-enabled ypserv.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active ypserv.service') do
+    its('stdout') {should_not eq "active\n"}
+  end
+  describe command('systemctl is-enabled nis.service') do
+    its('stdout') {should_not eq "enabled\n"}
+  end
+  describe command('systemctl is-active nis.service') do
+    its('stdout') {should_not eq "active\n"}
   end
 end
