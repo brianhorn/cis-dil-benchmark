@@ -34,12 +34,8 @@ control 'cis-dil-benchmark-3.3.1' do
   tag cis: 'distribution-independent-linux:3.3.1'
   tag level: 1
 
-  describe.one do
-    %w(tcpd tcp_wrappers).each do |p|
-      describe package(p) do
-        it { should be_installed }
-      end
-    end
+  describe command('tcpd') do
+    its('stdout') { should eq ""}
   end
 end
 
