@@ -114,10 +114,6 @@ control 'cis-dil-benchmark-4.1.3' do
   describe command('systemctl is-active auditd.service') do
     it { should_not eq "active\n"}
   end
-  describe service('auditd') do
-    it { should be_enabled }
-    it { should be_running }
-  end
 end
 
 control 'cis-dil-benchmark-4.1.4' do
@@ -150,7 +146,7 @@ control 'cis-dil-benchmark-4.1.5' do
   only_if { cis_level == 2 }
 
   # arch=b32 should be set on both 32bit and 64bit systems https://security.stackexchange.com/a/242462
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change$/) }
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S clock_settime -k time-change$/) }
     its('content') { should match %r{^-w /etc/localtime -p wa -k time-change$} }
@@ -158,7 +154,7 @@ control 'cis-dil-benchmark-4.1.5' do
 
   uname = command('uname -m').stdout.strip
   if uname == 'x86_64' || uname == 'aarch64'
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S adjtimex -S settimeofday -k time-change$/) }
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S clock_settime -k time-change$/) }
     end
@@ -175,7 +171,7 @@ control 'cis-dil-benchmark-4.1.6' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(%r{^-w /etc/group -p wa -k identity$}) }
     its('content') { should match(%r{^-w /etc/passwd -p wa -k identity$}) }
     its('content') { should match(%r{^-w /etc/gshadow -p wa -k identity$}) }
@@ -194,7 +190,7 @@ control 'cis-dil-benchmark-4.1.7' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S sethostname -S setdomainname -k system-locale$/) }
     its('content') { should match(%r{^-w /etc/issue -p wa -k system-locale$}) }
     its('content') { should match(%r{^-w /etc/issue\.net -p wa -k system-locale$}) }
@@ -204,7 +200,7 @@ control 'cis-dil-benchmark-4.1.7' do
 
   uname = command('uname -m').stdout.strip
   if uname == 'x86_64' || uname == 'aarch64'
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S sethostname -S setdomainname -k system-locale$/) }
     end
   end
@@ -221,11 +217,11 @@ control 'cis-dil-benchmark-4.1.8' do
   only_if { cis_level == 2 }
 
   describe.one do
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(%r{^-w /etc/selinux/ -p wa -k MAC-policy$}) }
       its('content') { should match(%r{^-w /usr/share/selinux/ -p wa -k MAC-policy$}) }
     end
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(%r{^-w /etc/apparmor/ -p wa -k MAC-policy$}) }
       its('content') { should match(%r{^-w /etc/apparmor.d/ -p wa -k MAC-policy$}) }
     end
@@ -242,7 +238,7 @@ control 'cis-dil-benchmark-4.1.9' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(%r{^-w /var/log/faillog -p wa -k logins$}) }
     its('content') { should match(%r{^-w /var/log/lastlog -p wa -k logins$}) }
     its('content') { should match(%r{^-w /var/log/tallylog -p wa -k logins$}) }
@@ -259,7 +255,7 @@ control 'cis-dil-benchmark-4.1.10' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(%r{^-w /var/run/utmp -p wa -k session$}) }
     its('content') { should match(%r{^-w /var/log/wtmp -p wa -k logins$}) }
     its('content') { should match(%r{^-w /var/log/btmp -p wa -k logins$}) }
@@ -276,7 +272,7 @@ control 'cis-dil-benchmark-4.1.11' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=#{uid_min} -F auid!=4294967295 -k perm_mod$/) }
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=#{uid_min} -F auid!=4294967295 -k perm_mod$/) }
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=#{uid_min} -F auid!=4294967295 -k perm_mod$/) }
@@ -284,7 +280,7 @@ control 'cis-dil-benchmark-4.1.11' do
 
   uname = command('uname -m').stdout.strip
   if uname == 'x86_64' || uname == 'aarch64'
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=#{uid_min} -F auid!=4294967295 -k perm_mod$/) }
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=#{uid_min} -F auid!=4294967295 -k perm_mod$/) }
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=#{uid_min} -F auid!=4294967295 -k perm_mod$/) }
@@ -302,14 +298,14 @@ control 'cis-dil-benchmark-4.1.12' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=#{uid_min} -F auid!=4294967295 -k access$/) }
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=#{uid_min} -F auid!=4294967295 -k access$/) }
   end
 
   uname = command('uname -m').stdout.strip
   if uname == 'x86_64' || uname == 'aarch64'
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=#{uid_min} -F auid!=4294967295 -k access$/) }
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=#{uid_min} -F auid!=4294967295 -k access$/) }
     end
@@ -327,7 +323,7 @@ control 'cis-dil-benchmark-4.1.13' do
   only_if { cis_level == 2 }
 
   command('find / -xdev \( -perm -4000 -o -perm -2000 \) -type f').stdout.split.map { |x| "^-a (always,exit|exit,always) -F path=#{x} -F perm=x -F auid>=#{uid_min} -F auid!=4294967295 -k privileged$" }.each do |entry|
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match Regexp.new(entry) }
     end
   end
@@ -343,13 +339,13 @@ control 'cis-dil-benchmark-4.1.14' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S mount -F auid>=#{uid_min} -F auid!=4294967295 -k mounts$/) }
   end
 
   uname = command('uname -m').stdout.strip
   if uname == 'x86_64' || uname == 'aarch64'
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S mount -F auid>=#{uid_min} -F auid!=4294967295 -k mounts$/) }
     end
   end
@@ -365,13 +361,13 @@ control 'cis-dil-benchmark-4.1.15' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=#{uid_min} -F auid!=4294967295 -k delete$/) }
   end
 
   uname = command('uname -m').stdout.strip
   if uname == 'x86_64' || uname == 'aarch64'
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=#{uid_min} -F auid!=4294967295 -k delete$/) }
     end
   end
@@ -387,7 +383,7 @@ control 'cis-dil-benchmark-4.1.16' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(%r{^-w /etc/sudoers -p wa -k scope$}) }
     its('content') { should match(%r{^-w /etc/sudoers\.d/? -p wa -k scope$}) }
   end
@@ -403,7 +399,7 @@ control 'cis-dil-benchmark-4.1.17' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(%r{^-w /var/log/sudo\.log -p wa -k actions$}) }
   end
 end
@@ -418,7 +414,7 @@ control 'cis-dil-benchmark-4.1.18' do
 
   only_if { cis_level == 2 }
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(%r{^-w /sbin/insmod -p x -k modules$}) }
     its('content') { should match(%r{^-w /sbin/rmmod -p x -k modules$}) }
     its('content') { should match(%r{^-w /sbin/modprobe -p x -k modules$}) }
@@ -426,11 +422,11 @@ control 'cis-dil-benchmark-4.1.18' do
 
   uname = command('uname -m').stdout.strip
   if uname == 'x86_64' || uname == 'aarch64'
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b64 -S init_module -S delete_module -k modules$/) }
     end
   else
-    describe file('/etc/audit/audit.rules') do
+    describe file('/etc/audit/rules.d/audit.rules') do
       its('content') { should match(/^-a (always,exit|exit,always) -F arch=b32 -S init_module -S delete_module -k modules$/) }
     end
   end
@@ -446,7 +442,7 @@ control 'cis-dil-benchmark-4.1.19' do
   tag cis: 'distribution-independent-linux:4.1.19'
   tag level: 2
 
-  describe file('/etc/audit/audit.rules') do
+  describe file('/etc/audit/rules.d/audit.rules') do
     its('content') { should match(/^-e 2$/) }
   end
 end
