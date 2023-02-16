@@ -20,7 +20,7 @@
 title '4.2 Configure Logging'
 
 control 'cis-dil-benchmark-4.2.1.1' do
-  title 'Ensure rsyslog Service is insalled'
+  title 'Ensure rsyslog Service is installed'
   desc  '
     The `rsyslog` software is a recommended replacement to the original `syslogd` daemon which provide
     improvements over `syslogd`, such as connection-oriented (i.e. TCP) transmission of logs, the option to log to database formats,
@@ -49,10 +49,10 @@ control 'cis-dil-benchmark-4.2.1.2' do
   tag level: 1
 
   describe command('systemctl is-enabled rsyslog.service') do
-    its('stdout') {should_not eq "enabled\n"}
+    its('stdout') {should eq "enabled\n"}
   end
   describe command('systemctl is-active rsyslog.service') do
-    its('stdout') {should_not eq "active\n"}
+    its('stdout') {should eq "active\n"}
   end
 end
 
