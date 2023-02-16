@@ -152,7 +152,10 @@ control 'cis-dil-benchmark-4.2.1.6' do
   tag level: 1
 
   describe 'cis-dil-benchmark-4.2.1.6' do
-    skip 'Not implemented'
+    skip 'Check whether Host is supposed to be designated as log host, add or remove
+          $ModLoad imtcp
+          $InputTCPServerRun 514
+          in /etc/rsyslog.conf accordingly'
   end
 end
 
@@ -245,6 +248,6 @@ control 'cis-dil-benchmark-4.3' do
   tag level: 1
 
   describe 'cis-dil-benchmark-4.3' do
-    skip 'Not implemented'
+    skip 'Check whether log rotation in /etc/logrotate.conf conforms to site policy'
   end
 end
