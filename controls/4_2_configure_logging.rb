@@ -129,8 +129,8 @@ control 'cis-dil-benchmark-4.2.1.5' do
   tag cis: 'distribution-independent-linux:4.2.1.5'
   tag level: 1
 
-  describe file('/etc/rsyslog.conf') do
-    its(:content) { should match(/^\s*\*\.\*\s+@/) }
+  describe 'cis-dil-benchmark-4.2.1.5' do
+    skip 'Add your organisations central log host to /etc/rsyslog.conf'
   end
 end
 
