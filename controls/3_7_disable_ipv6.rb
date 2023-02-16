@@ -32,6 +32,6 @@ control 'cis-dil-benchmark-3.7' do
   only_if { cis_level == 2 }
 
   describe 'cis-dil-benchmark-3.7' do
-    skip 'Not implemented'
+    skip 'Check if IPv6 is needed, disable if possible'
   end
 end

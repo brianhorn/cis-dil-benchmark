@@ -28,6 +28,6 @@ control 'cis-dil-benchmark-3.6' do
   tag level: 1
 
   describe 'cis-dil-benchmark-3.6' do
-    skip 'Not implemented'
+    skip 'Check wireless interfaces and whether they can be disabled'
   end
 end
