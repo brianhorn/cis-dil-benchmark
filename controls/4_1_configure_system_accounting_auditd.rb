@@ -442,7 +442,7 @@ control 'cis-dil-benchmark-4.1.19' do
   tag cis: 'distribution-independent-linux:4.1.19'
   tag level: 2
 
-  describe file('/etc/audit/rules.d/audit.rules') do
+  describe file('/etc/audit/rules.d/99-finalize.rules') do
     its('content') { should match(/^-e 2$/) }
   end
 end
