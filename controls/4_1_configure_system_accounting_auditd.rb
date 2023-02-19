@@ -82,7 +82,7 @@ control 'cis-dil-benchmark-4.1.2' do
   only_if { cis_level == 2 }
 
   describe command('auditd') do
-    its{'stdout'} { should_not eq '\n'}
+    its('stdout') { should_not eq '\n'}
   end
 end
 

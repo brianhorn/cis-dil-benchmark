@@ -231,6 +231,6 @@ control 'cis-dil-benchmark-3.5.3' do
   tag level: 1
 
   describe command('iptables') do
-    its{'stdout'} { should_not eq '-sh: iptables: command not found'}
+    its('stdout') { should_not eq '-sh: iptables: command not found\'}
   end
 end
