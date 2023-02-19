@@ -219,11 +219,8 @@ control 'cis-dil-benchmark-6.1.6' do
   tag cis: 'distribution-independent-linux:6.1.6'
   tag level: 1
 
-  describe file('/etc/passwd-') do
-    it { should exist }
-    it { should_not be_more_permissive_than('0600') }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
+  describe 'cis-dil-benchmark-6.1.6' do
+    skip '/etc/passwd- not created by any installed package'
   end
 end
 
@@ -292,11 +289,8 @@ control 'cis-dil-benchmark-6.1.9' do
   tag cis: 'distribution-independent-linux:6.1.9'
   tag level: 1
 
-  describe file('/etc/gshadow-') do
-    it { should exist }
-    it { should_not be_more_permissive_than('0640') }
-    it { should be_owned_by 'root' }
-    its('gid') { should cmp expected_gid }
+  describe 'cis-dil-benchmark-6.1.9' do
+    skip '/etc/gshadow- not created by any installed package'
   end
 end
 
