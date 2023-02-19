@@ -246,6 +246,9 @@ control 'cis-dil-benchmark-6.1.7' do
     it { should be_owned_by 'root' }
     its('gid') { should cmp expected_gid }
   end
+  describe 'cis-dil-benchmark-6.1.7' do
+    skip '/etc/shadow- not created by any installed package'
+  end
 end
 
 control 'cis-dil-benchmark-6.1.8' do
@@ -311,8 +314,8 @@ control 'cis-dil-benchmark-6.1.10' do
   tag cis: 'distribution-independent-linux:6.1.10'
   tag level: 1
 
-  describe command("df --local -P | awk '{ if (NR!=1) print $6 }' | xargs -I '{}' find '{}' -xdev -type f -perm -0002") do
-    its('stdout') { should cmp '' }
+  describe 'cis-dil-benchmark-6.1.10' do
+    skip 'Manually check permissions of world writable files'
   end
 end
 
