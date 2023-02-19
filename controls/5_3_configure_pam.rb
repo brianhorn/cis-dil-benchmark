@@ -52,7 +52,8 @@ control 'cis-dil-benchmark-5.3.1' do
   tag level: 1
 
   describe 'cis-dil-benchmark-5.3.1' do
-    skip "Manually check if organisatiosn site policy is configured"
+    skip "Manually check if organisatiosn site policy is configured, adjust
+    in pam_cracklib.so or  pam_pwquality.so"
   end
 end
 

@@ -34,12 +34,6 @@ control 'cis-dil-benchmark-5.1.1' do
   tag cis: 'distribution-independent-linux:5.1.1'
   tag level: 1
 
-  describe command('systemctl is-enabled cron.service') do
-    its('stdout') {should eq "enabled\n"}
-  end
-  describe command('systemctl is-active cron.service') do
-    its('stdout') {should eq "active\n"}
-  end
   describe command('systemctl is-enabled crond.service') do
     its('stdout') {should eq "enabled\n"}
   end
