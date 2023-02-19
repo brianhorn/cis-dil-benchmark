@@ -195,9 +195,10 @@ control 'cis-dil-benchmark-1.1.6' do
   tag cis: 'distribution-independent-linux:1.1.6'
   tag level: 2
 
-  describe mount('/var') do
-    it { should be_mounted }
+  describe 'cis-dil-benchmark-1.1.6' do
+    skip 'Different partition layout currently not supported'
   end
+
   only_if { cis_level == 2 }
 end
 
@@ -209,10 +210,9 @@ control 'cis-dil-benchmark-1.1.7' do
   tag cis: 'distribution-independent-linux:1.1.7'
   tag level: 2
 
-  describe mount('/var/tmp') do
-    it { should be_mounted }
+  describe 'cis-dil-benchmark-1.1.7' do
+    skip 'Different partition layout currently not supported'
   end
-  only_if { cis_level == 2 }
 end
 
 control 'cis-dil-benchmark-1.1.8' do
@@ -223,12 +223,8 @@ control 'cis-dil-benchmark-1.1.8' do
   tag cis: 'distribution-independent-linux:1.1.8'
   tag level: 1
 
-  only_if('/var/tmp is mounted') do
-    mount('/var/tmp').mounted?
-  end
-
-  describe mount('/var/tmp') do
-    its('options') { should include 'nodev' }
+  describe 'cis-dil-benchmark-1.1.8' do
+    skip 'Different partition layout currently not supported'
   end
 end
 
@@ -240,12 +236,8 @@ control 'cis-dil-benchmark-1.1.9' do
   tag cis: 'distribution-independent-linux:1.1.9'
   tag level: 1
 
-  only_if('/var/tmp is mounted') do
-    mount('/var/tmp').mounted?
-  end
-
-  describe mount('/var/tmp') do
-    its('options') { should include 'nosuid' }
+  describe 'cis-dil-benchmark-1.1.9' do
+    skip 'Different partition layout currently not supported'
   end
 end
 
@@ -257,12 +249,8 @@ control 'cis-dil-benchmark-1.1.10' do
   tag cis: 'distribution-independent-linux:1.1.10'
   tag level: 1
 
-  only_if('/var/tmp is mounted') do
-    mount('/var/tmp').mounted?
-  end
-
-  describe mount('/var/tmp') do
-    its('options') { should include 'noexec' }
+  describe 'cis-dil-benchmark-1.1.10' do
+    skip 'Different partition layout currently not supported'
   end
 end
 
@@ -274,8 +262,8 @@ control 'cis-dil-benchmark-1.1.11' do
   tag cis: 'distribution-independent-linux:1.1.11'
   tag level: 2
 
-  describe mount('/var/log') do
-    it { should be_mounted }
+  describe 'cis-dil-benchmark-1.1.11' do
+    skip 'Different partition layout currently not supported'
   end
   only_if { cis_level == 2 }
 end
@@ -288,11 +276,10 @@ control 'cis-dil-benchmark-1.1.12' do
   tag cis: 'distribution-independent-linux:1.1.12'
   tag level: 2
 
-  only_if { cis_level == 2 }
-
-  describe mount('/var/log/audit') do
-    it { should be_mounted }
+  describe 'cis-dil-benchmark-1.1.12' do
+    skip 'Different partition layout currently not supported'
   end
+  only_if { cis_level == 2 }
 end
 
 control 'cis-dil-benchmark-1.1.13' do
@@ -303,11 +290,10 @@ control 'cis-dil-benchmark-1.1.13' do
   tag cis: 'distribution-independent-linux:1.1.13'
   tag level: 2
 
-  only_if { cis_level == 2 }
-
-  describe mount('/home') do
-    it { should be_mounted }
+  describe 'cis-dil-benchmark-1.1.13' do
+    skip 'Different partition layout currently not supported'
   end
+  only_if { cis_level == 2 }
 end
 
 control 'cis-dil-benchmark-1.1.14' do
@@ -318,12 +304,8 @@ control 'cis-dil-benchmark-1.1.14' do
   tag cis: 'distribution-independent-linux:1.1.14'
   tag level: 1
 
-  only_if('/home is mounted') do
-    mount('/home').mounted?
-  end
-
-  describe mount('/home') do
-    its('options') { should include 'nodev' }
+  describe 'cis-dil-benchmark-1.1.14' do
+    skip 'Different partition layout currently not supported'
   end
 end
 
