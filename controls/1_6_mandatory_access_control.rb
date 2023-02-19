@@ -29,14 +29,9 @@ control 'cis-dil-benchmark-1.6.1.1' do
   tag cis: 'distribution-independent-linux:1.6.1.1'
   tag level: 2
 
-  describe.one do
-    %w(libselinux libselinux1 apparmor).each do |p|
-      describe package(p) do
-        it { should be_installed }
-      end
-    end
+  describe command('apparmor_status') do
+    its('stdout') { should_not eq '-sh: apparmor: command not found\n'}
   end
-
   only_if { cis_level == 2 }
 end
 

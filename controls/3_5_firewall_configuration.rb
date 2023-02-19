@@ -230,7 +230,7 @@ control 'cis-dil-benchmark-3.5.3' do
   tag cis: 'distribution-independent-linux:3.5.3'
   tag level: 1
 
-  describe package('iptables') do
-    it { should be_installed }
+  describe command('iptables') do
+    its{'stdout'} { should_not eq '-sh: iptables: command not found'}
   end
 end

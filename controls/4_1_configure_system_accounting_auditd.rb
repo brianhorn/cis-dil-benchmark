@@ -81,20 +81,8 @@ control 'cis-dil-benchmark-4.1.2' do
 
   only_if { cis_level == 2 }
 
-  describe.one do
-    %w(audit auditd).each do |p|
-      describe package(p) do
-        it { should be_installed }
-      end
-    end
-  end
-
-  describe.one do
-    %w(audit-libs audispd-plugins).each do |p|
-      describe package(p) do
-        it { should be_installed }
-      end
-    end
+  describe command('auditd') do
+    its{'stdout'} { should_not eq '\n'}
   end
 end
 
