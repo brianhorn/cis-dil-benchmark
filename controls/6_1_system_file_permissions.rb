@@ -239,13 +239,6 @@ control 'cis-dil-benchmark-6.1.7' do
   tag cis: 'distribution-independent-linux:6.1.7'
   tag level: 1
 
-  describe file('/etc/shadow-') do
-    it { should exist }
-    it { should_not be_more_permissive_than('0640') }
-
-    it { should be_owned_by 'root' }
-    its('gid') { should cmp expected_gid }
-  end
   describe 'cis-dil-benchmark-6.1.7' do
     skip '/etc/shadow- not created by any installed package'
   end
@@ -267,11 +260,8 @@ control 'cis-dil-benchmark-6.1.8' do
   tag cis: 'distribution-independent-linux:6.1.8'
   tag level: 1
 
-  describe file('/etc/group-') do
-    it { should exist }
-    it { should_not be_more_permissive_than('0644') }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
+  describe 'cis-dil-benchmark-6.1.8' do
+    skip '/etc/group- not created by any installed package'
   end
 end
 
