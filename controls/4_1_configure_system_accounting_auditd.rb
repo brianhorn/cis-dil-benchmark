@@ -82,7 +82,7 @@ control 'cis-dil-benchmark-4.1.2' do
   only_if { cis_level == 2 }
 
   describe command('auditd') do
-    its('stdout') { should_not eq '\n'}
+    its('stdout') { should_not eq "\n"}
   end
 end
 
@@ -114,13 +114,10 @@ control 'cis-dil-benchmark-4.1.4' do
 
   only_if { cis_level == 2 }
 
-  describe.one do
-    grub_conf.locations.each do |f|
-      describe file(f) do
-        its('content') { should match(/audit=1/) }
-      end
-    end
+  describe 'cis-dil-benchmark-4.1.4' do
+    skip 'Not using GRUB; enable audit support in menuconfig'
   end
+
 end
 
 control 'cis-dil-benchmark-4.1.5' do

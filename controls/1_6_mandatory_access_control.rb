@@ -30,7 +30,7 @@ control 'cis-dil-benchmark-1.6.1.1' do
   tag level: 2
 
   describe command('apparmor_status') do
-    its('stdout') { should_not eq '-sh: apparmor: command not found\n'}
+    its('stdout') { should_not eq "-sh: apparmor: command not found\n"}
   end
   only_if { cis_level == 2 }
 end
@@ -176,14 +176,10 @@ control 'cis-dil-benchmark-1.6.3.1' do
   tag cis: 'distribution-independent-linux:1.6.3.1'
   tag level: 2
 
-  only_if { cis_level == 2 && package('apparmor').installed? }
+  only_if { cis_level == 2 }
 
-  describe.one do
-    grub_conf.locations.each do |f|
-      describe file(f) do
-        its('content') { should_not match /apparmor=0/ }
-      end
-    end
+  describe 'cis-dil-benchmark-1.6.2.6' do
+    skip 'Set AppArmor active in menuconfig'
   end
 end
 
@@ -195,7 +191,7 @@ control 'cis-dil-benchmark-1.6.3.2' do
   tag cis: 'distribution-independent-linux:1.6.3.2'
   tag level: 2
 
-  only_if { cis_level == 2 && package('apparmor').installed? }
+  only_if { cis_level == 2 }
 
   describe command('apparmor_status --profiled') do
     its('stdout') { should cmp > 0 }
