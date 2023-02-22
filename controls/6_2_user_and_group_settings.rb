@@ -198,7 +198,7 @@ control 'cis-dil-benchmark-6.2.8' do
   tag cis: 'distribution-independent-linux:6.2.8'
   tag level: 1
 
-  describe 'cis-dil-benchmark-6.2.7' do
+  describe 'cis-dil-benchmark-6.2.8' do
     skip 'No home directories available'
   end
 end
@@ -218,7 +218,7 @@ control 'cis-dil-benchmark-6.2.9' do
   tag cis: 'distribution-independent-linux:6.2.9'
   tag level: 1
 
-  describe 'cis-dil-benchmark-6.2.7' do
+  describe 'cis-dil-benchmark-6.2.9' do
     skip 'No home directories available'
   end
 end

@@ -369,7 +369,7 @@ control 'cis-dil-benchmark-1.1.18' do
   tag level: 1
 
   describe 'cis-dil-benchmark-1.1.18' do
-    skip 'Not implemented'
+    skip 'check manually for removable media devices in use'
   end
 end
 
@@ -382,7 +382,7 @@ control 'cis-dil-benchmark-1.1.19' do
   tag level: 1
 
   describe 'cis-dil-benchmark-1.1.19' do
-    skip 'Not implemented'
+    skip 'check manually for removable media devices in use'
   end
 end
 
@@ -395,7 +395,7 @@ control 'cis-dil-benchmark-1.1.20' do
   tag level: 1
 
   describe 'cis-dil-benchmark-1.1.20' do
-    skip 'Not implemented'
+    skip 'check manually for removable media devices in use'
   end
 end
 

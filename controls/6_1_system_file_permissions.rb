@@ -260,8 +260,11 @@ control 'cis-dil-benchmark-6.1.8' do
   tag cis: 'distribution-independent-linux:6.1.8'
   tag level: 1
 
-  describe 'cis-dil-benchmark-6.1.8' do
-    skip '/etc/group- not created by any installed package'
+  describe file('/etc/group-') do
+    it { should exist }
+    it { should_not be_more_permissive_than('0644') }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
   end
 end
 
@@ -305,7 +308,7 @@ control 'cis-dil-benchmark-6.1.10' do
   tag level: 1
 
   describe 'cis-dil-benchmark-6.1.10' do
-    skip 'Manually check permissions of world writable files'
+    skip 'Manually check if permissions of world writable files are set correctly'
   end
 end
 

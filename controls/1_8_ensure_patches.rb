@@ -28,6 +28,6 @@ control 'cis-dil-benchmark-1.8' do
   tag level: 1
 
   describe 'cis-dil-benchmark-1.8' do
-    skip 'Not implemented'
+    skip 'Updates available in RAUC Image'
   end
 end

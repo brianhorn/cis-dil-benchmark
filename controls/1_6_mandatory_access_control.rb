@@ -178,7 +178,7 @@ control 'cis-dil-benchmark-1.6.3.1' do
 
   only_if { cis_level == 2 }
 
-  describe 'cis-dil-benchmark-1.6.2.6' do
+  describe 'cis-dil-benchmark-1.6.3.1' do
     skip 'Set AppArmor active in menuconfig'
   end
 end
