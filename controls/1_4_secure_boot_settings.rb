@@ -100,7 +100,7 @@ control 'cis-dil-benchmark-1.4.4' do
     end
   else
     describe 'cis-dil-benchmark-1.4.4' do
-      skip 'Not implemented'
+      skip 'Interactive Boot not enabled'
     end
   end
 end
